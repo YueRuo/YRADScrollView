@@ -2,6 +2,10 @@
 支持循环滚动的控件
 
 ---
+支持Cocoapods安装
+
+	   pod 'YRADScrollView', '~> 1.0.0'
+
 
 特点：  
 
