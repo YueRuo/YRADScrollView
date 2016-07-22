@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "YRADScrollView"
-  s.version      = "1.0.0"
+  s.version      = "1.0.1"
   s.summary      = "a cycle scrollview with reuseable pool."
 
 #  s.description  = <<-DESC

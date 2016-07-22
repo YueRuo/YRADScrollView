@@ -88,7 +88,10 @@
             _totalPageNumber = [self.dataSource numberOfViewsForYRADScrollView:self];
         }
     }
-    [_onShowViewDictionary removeAllObjects];
+    if (_onShowViewDictionary.count>0) {
+        [_reusableViewSet addObjectsFromArray:[_onShowViewDictionary allValues]];
+        [_onShowViewDictionary removeAllObjects];
+    }
     
     if (_cycleEnabled) {
         _scrollView.contentSize = CGSizeMake(_scrollView.frame.size.width*2000*_totalPageNumber, 0);
@@ -109,7 +112,6 @@
     [self prepareViewAtPositionIndex:positionIndex];
     [self prepareViewAtPositionIndex:positionIndex-1];
     [self prepareViewAtPositionIndex:positionIndex+1];
-    
     
     NSArray *allKeyArray = _onShowViewDictionary.allKeys;
     for (NSInteger i=allKeyArray.count-1;i>=0;i--) {
