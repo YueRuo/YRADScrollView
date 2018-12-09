@@ -4,7 +4,7 @@
 ---
 支持CocoaPods安装
 
-	   pod 'YRADScrollView', '~> 1.0.0'
+	   pod 'YRADScrollView', '~> 1.0'
 
 
 特点：  
@@ -26,3 +26,4 @@
 
 效果图：  
 ![效果图](YRADScrollView动画图.gif "效果图")
+
