@@ -106,6 +106,29 @@
     }
 }
 
+- (void)scrollToPage:(NSInteger)page animated:(BOOL)animated{
+    NSInteger safePage = MIN(0, MAX(page, _totalPageNumber));
+    if (safePage == _currentPage) {
+        return;
+    }
+    NSInteger leftOffset = safePage-_currentPage;
+    NSInteger rightOffset = safePage+_totalPageNumber-_currentPage;
+    _positionIndex = _positionIndex+(ABS(leftOffset)<rightOffset?leftOffset:rightOffset);
+    [self setPageToPositionIndex:_positionIndex];
+    [_scrollView setContentOffset:CGPointMake(_positionIndex * _scrollView.frame.size.width, 0) animated:animated];
+}
+- (void)scrollToNextPage:(BOOL)animated{
+    _positionIndex = _positionIndex+1;
+    [self setPageToPositionIndex:_positionIndex];
+    [_scrollView setContentOffset:CGPointMake(_positionIndex * _scrollView.frame.size.width, 0) animated:animated];
+}
+- (void)scrollToPrePage:(BOOL)animated{
+    _positionIndex = _positionIndex-1;
+    [self setPageToPositionIndex:_positionIndex];
+    [_scrollView setContentOffset:CGPointMake(_positionIndex * _scrollView.frame.size.width, 0) animated:animated];
+}
+
+
 - (void)setPageToPositionIndex:(NSInteger)positionIndex {
     [self prepareViewAtPositionIndex:positionIndex];
     [self prepareViewAtPositionIndex:positionIndex - 1];

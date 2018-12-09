@@ -62,6 +62,8 @@
 #pragma mark adViewDelegate
 -(void)adScrollView:(YRADScrollView *)adScrollView didClickedAtPage:(NSInteger)pageIndex{
     NSLog(@"-->>点击了:%@",[_nameArray objectAtIndex:pageIndex]);
+//    [adScrollView scrollToPage:0 animated:true];
+    [adScrollView scrollToNextPage:true];
 }
 -(void)adScrollView:(YRADScrollView *)adScrollView didScrollToPage:(NSInteger)pageIndex{
     NSLog(@"--->>当前已展示:%@",[_nameArray objectAtIndex:pageIndex]);

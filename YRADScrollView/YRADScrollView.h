@@ -18,6 +18,10 @@
 
 - (id)dequeueReusableView; //重用池中取出一个控件
 - (void)reloadData;
+
+- (void)scrollToPage:(NSInteger)page animated:(BOOL)animated;
+- (void)scrollToNextPage:(BOOL)animated;
+- (void)scrollToPrePage:(BOOL)animated;
 @end
 
 @protocol YRADScrollViewDataSource <NSObject>
@@ -33,6 +37,7 @@
 @end
 
 @protocol YRADScrollViewDelegate <NSObject>
+@optional
 - (void)adScrollView:(YRADScrollView *)adScrollView didClickedAtPage:(NSInteger)pageIndex;//点击了某一页
 - (void)adScrollView:(YRADScrollView *)adScrollView didScrollToPage:(NSInteger)pageIndex;//滚动到某一页
 - (void)adScrollView:(YRADScrollView *)adScrollView willDisplayView:(UIView *)view forPage:(NSInteger)pageIndex;//某页要出现了
