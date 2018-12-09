@@ -38,8 +38,10 @@
 
 @protocol YRADScrollViewDelegate <NSObject>
 @optional
-- (void)adScrollView:(YRADScrollView *)adScrollView didClickedAtPage:(NSInteger)pageIndex;//点击了某一页
-- (void)adScrollView:(YRADScrollView *)adScrollView didScrollToPage:(NSInteger)pageIndex;//滚动到某一页
-- (void)adScrollView:(YRADScrollView *)adScrollView willDisplayView:(UIView *)view forPage:(NSInteger)pageIndex;//某页要出现了
-- (void)adScrollView:(YRADScrollView *)adScrollView didEndDisplayView:(UIView *)view forPage:(NSInteger)pageIndex;//某页要消失了
+- (void)adScrollView:(YRADScrollView *)adScrollView didClickedAtPage:(NSInteger)pageIndex;
+- (void)adScrollView:(YRADScrollView *)adScrollView didScrollToPage:(NSInteger)pageIndex;
+- (void)adScrollView:(YRADScrollView *)adScrollView willDisplayView:(UIView *)view forPage:(NSInteger)pageIndex;
+- (void)adScrollView:(YRADScrollView *)adScrollView didEndDisplayView:(UIView *)view forPage:(NSInteger)pageIndex;
+- (void)adScrollViewWillBeginDragging:(YRADScrollView *)adScrollView;
+- (void)adScrollViewDidEndDragging:(YRADScrollView *)adScrollView willDecelerate:(BOOL)decelerate;
 @end

@@ -16,7 +16,6 @@
     NSInteger _totalPageNumber;
     NSInteger _positionIndex;
 }
-
 @end
 @implementation YRADScrollView
 
@@ -58,18 +57,14 @@
  }
  */
 
+#pragma mark public
+
 - (void)setScrollEnabled:(BOOL)scrollEnabled {
     _scrollView.scrollEnabled = scrollEnabled;
 }
 
 - (BOOL)scrollEnabled {
     return _scrollView.scrollEnabled;
-}
-
-- (void)handleTap:(UITapGestureRecognizer *)gesture {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(adScrollView:didClickedAtPage:)]) {
-        [self.delegate adScrollView:self didClickedAtPage:_currentPage];
-    }
 }
 
 - (id)dequeueReusableView {
@@ -128,6 +123,13 @@
     [_scrollView setContentOffset:CGPointMake(_positionIndex * _scrollView.frame.size.width, 0) animated:animated];
 }
 
+#pragma mark private
+
+- (void)handleTap:(UITapGestureRecognizer *)gesture {
+    if (_delegate && [_delegate respondsToSelector:@selector(adScrollView:didClickedAtPage:)]) {
+        [_delegate adScrollView:self didClickedAtPage:_currentPage];
+    }
+}
 
 - (void)setPageToPositionIndex:(NSInteger)positionIndex {
     [self prepareViewAtPositionIndex:positionIndex];
@@ -147,9 +149,9 @@
             view.hidden = false;
         }
     }
-    if ([self.delegate respondsToSelector:@selector(adScrollView:willDisplayView:forPage:)]) {
+    if ([_delegate respondsToSelector:@selector(adScrollView:willDisplayView:forPage:)]) {
         UIView *view = [_onShowViewDictionary objectForKey:@(positionIndex)];
-        [self.delegate adScrollView:self willDisplayView:view forPage:self.currentPage];
+        [_delegate adScrollView:self willDisplayView:view forPage:self.currentPage];
     }
 }
 
@@ -183,6 +185,9 @@
     view.hidden = false;
 }
 
+
+#pragma mark scrollViewDelegate
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (_totalPageNumber == 0) {
         return;
@@ -195,14 +200,14 @@
                 return;
             }
         }
-        if ([self.delegate respondsToSelector:@selector(adScrollView:didEndDisplayView:forPage:)]) {
+        if ([_delegate respondsToSelector:@selector(adScrollView:didEndDisplayView:forPage:)]) {
             UIView *view = [_onShowViewDictionary objectForKey:@(_positionIndex)];
-            [self.delegate adScrollView:self didEndDisplayView:view forPage:_positionIndex];
+            [_delegate adScrollView:self didEndDisplayView:view forPage:_positionIndex];
         }
         _positionIndex = page;
         _currentPage = [self pageFromPositionIndex:_positionIndex];
-        if (self.delegate && [self.delegate respondsToSelector:@selector(adScrollView:didScrollToPage:)]) {
-            [self.delegate adScrollView:self didScrollToPage:_currentPage];
+        if (_delegate && [_delegate respondsToSelector:@selector(adScrollView:didScrollToPage:)]) {
+            [_delegate adScrollView:self didScrollToPage:_currentPage];
         }
 
         [self setPageToPositionIndex:_positionIndex];
@@ -210,6 +215,18 @@
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    if (_delegate && [_delegate respondsToSelector:@selector(scrollViewWillBeginDragging:)]) {
+        [_delegate adScrollViewWillBeginDragging:self];
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    if (_delegate && [_delegate respondsToSelector:@selector(adScrollView:didScrollToPage:)]) {
+        [_delegate adScrollViewDidEndDragging:self willDecelerate:decelerate];
+    }
 }
 
 @end
