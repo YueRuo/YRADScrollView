@@ -218,7 +218,7 @@
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    if (_delegate && [_delegate respondsToSelector:@selector(scrollViewWillBeginDragging:)]) {
+    if (_delegate && [_delegate respondsToSelector:@selector(adScrollViewWillBeginDragging:)]) {
         [_delegate adScrollViewWillBeginDragging:self];
     }
 }
