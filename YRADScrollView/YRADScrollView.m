@@ -224,7 +224,7 @@
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    if (_delegate && [_delegate respondsToSelector:@selector(adScrollView:didScrollToPage:)]) {
+    if (_delegate && [_delegate respondsToSelector:@selector(adScrollViewDidEndDragging:willDecelerate:)]) {
         [_delegate adScrollViewDidEndDragging:self willDecelerate:decelerate];
     }
 }
